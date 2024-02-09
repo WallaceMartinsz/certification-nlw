@@ -1,10 +1,10 @@
-package com.wallace.certification_nlw.domain.student;
+package com.wallace.certification_nlw.domain.questions;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,19 +15,22 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "Students")
-public class Student {
-
+@Entity(name = "Questions")
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(unique = true, nullable = false)
-    private String email;
-    @OneToMany(mappedBy = "student")
-    private List<CertificationStudent> certificationStudent;
+
+    @Column(length = 50)
+    private String technology;
+
+    private String description;
+
+    @OneToMany
+    @JoinColumn(name = "question_id", insertable = false, updatable = false)
+    private List<Alternatives> alternatives;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
 
 }
