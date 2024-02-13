@@ -1,10 +1,8 @@
 package com.wallace.certification_nlw.domain.student;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity(name = "Answers_certifications_students")
+@Builder
 public class AnswersCertifications {
 
     @Id
@@ -26,10 +25,12 @@ public class AnswersCertifications {
 
     @ManyToOne
     @JoinColumn(name = "certification_id", insertable = false, updatable = false)
+    @JsonBackReference
     private CertificationStudent certificationStudent;
 
     @Column(name = "student_id")
     private UUID studentID;
+
     @ManyToOne
     @JoinColumn(name = "student_id", insertable = false, updatable = false)
     private Student student;
